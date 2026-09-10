@@ -1,1 +1,0 @@
-template = "BS1_breakout|{direction}|{poi_method}|{donchian_period}|{breakout_atr_mult}|opposite_donchian|{breakout_atr_period}|filter1|{filter1_method}|{filter1_param1}|{filter1_param2}|filter2|{filter2_method}|{filter2_param1}|{filter2_param2}|{bet_mode}|{fixed_bet_size}|{price_bet_frac}|{session}"
