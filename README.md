@@ -7,6 +7,12 @@ look-ahead, all from the command line.
 
 Powered by [coensio.com](https://coensio.com).
 
+![HTML report: zlema_retrace on ETH 1h, London session, 2016-2026](docs/report-example.png)
+
+Every backtest prints a metrics block and a terminal equity / drawdown chart, and writes an interactive HTML report plus a trade CSV to `results/`:
+
+![Terminal output of a backtest](docs/terminal-example.png)
+
 ## Why
 
 - **Speed.** Signals and fills run in Rust with Rayon. 125 genomes on 40k hourly bars evaluate in about 40 ms on an 8-core laptop, so a 250-generation GA finishes in seconds, not hours.
