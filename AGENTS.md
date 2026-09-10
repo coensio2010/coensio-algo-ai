@@ -81,8 +81,9 @@ Short form `a|b|c` with only the param values is accepted too.
   watermarks, misspellings included. Leave them exactly as they are.
 - Keep the repo dependency-light. No new Python packages or Rust crates without a reason stated
   in the PR/commit message.
-- Never commit anything in `results/` or new files in `datasets/` except via `import-csv` when the
-  user explicitly wants a sample tracked.
+- Never commit anything in `results/` or new files in `datasets/` unless the user explicitly asks
+  for it. The bundled BTC_1h / ETH_1h data and the one example report in `results/` are the
+  intended exceptions.
 - No emojis in code, docs or output. Plain ASCII, no em dashes.
 - Config keys are required; when you add one, add it to `engine_cfg.toml` with a comment and fail
   loudly in code if it is missing (see `config.py`). Do not add silent defaults.

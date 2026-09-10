@@ -1,0 +1,14 @@
+{
+  "bars": 88932,
+  "end": "now",
+  "engine_version": "0.1.0",
+  "first_bar": "2016-05-18 00:00:00+00:00",
+  "last_bar": "2026-07-19 08:00:00+00:00",
+  "note": "bundled; run sync_data.py --symbols ETH to extend/refresh",
+  "product": "ETH-USD",
+  "source": "coinbase",
+  "start": "2016-05-18",
+  "symbol": "ETH",
+  "tf": "1h",
+  "tz": "UTC"
+}

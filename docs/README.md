@@ -1,7 +1,7 @@
 # Command examples
 
 Copy-paste cheat sheet. Run everything from the repo root. Dataset names are stems
-in `datasets/` (`BTC_1h.parquet` ships with the repo); a full path works too.
+in `datasets/` (`BTC_1h.parquet` and `ETH_1h.parquet` ship with the repo); a full path works too.
 Dates use `YYYY.MM.DD` (or `YYYY-MM-DD`).
 
 Other docs: `../README.md` (overview), `NEW_STRATEGY.md` (writing strategies), `../AGENTS.md` (AI agents).
@@ -57,13 +57,15 @@ Defaults for population, generations, seed, workers, min trades come from `engin
 ## Backtest a genome
 
 Genome strings are printed by `optimize` and by `strategies` (template). Always quote them.
+The zlema_retrace ETH london run below is the example report bundled in `results/`.
 
 ```text
 python -m coensio_algo_ai backtest --strategy donchian_atr --file BTC_1h.parquet --sessions none --genome "donchian_atr|both|40|20|10|50|1.2|2.0|1|48|donchian_atr_exp|fixed|2000.0|0.1|none"
 python -m coensio_algo_ai backtest --strategy BS1_breakout --file BTC_1h.parquet --sessions london --genome "BS1_breakout|long|7|17|1.358|opposite_donchian|26|filter1|2|17|13|filter2|22|8|5|fixed|2000.0|0.1|london"
-python -m coensio_algo_ai backtest --strategy dual_thrust --file BTC_1h.parquet --sessions london --genome "dual_thrust|both|25|0.431|0.994|31|2|9|26|2.0|flip_trail_time|11|fixed|2000.0|0.1|london"
-python -m coensio_algo_ai backtest --strategy zlema_retrace --file BTC_1h.parquet --sessions london --genome "zlema_retrace|both|69|35|1.948|20|0.384|0|2.229|1.956|10|16|0|1|zlema_stop_target_time|fixed|2000.0|0.1|london"
-python -m coensio_algo_ai backtest --strategy donchian_atr --file BTC_1h.parquet --sessions asia --genome "donchian_atr|both|49|21|9|59|1.059|1.0|1|27|donchian_atr_exp|fixed|2000.0|0.1|asia" --is-start 2023.01.01 --oos-cutoff 2025.01.01
+python -m coensio_algo_ai backtest --strategy dual_thrust --file ETH_1h.parquet --sessions london --genome "dual_thrust|both|25|0.431|0.994|31|2|9|26|2.0|flip_trail_time|11|fixed|2000.0|0.1|london"
+python -m coensio_algo_ai backtest --strategy zlema_retrace --file ETH_1h.parquet --sessions london --genome "zlema_retrace|both|69|35|1.948|20|0.384|0|2.229|1.956|10|16|0|1|zlema_stop_target_time|fixed|2000.0|0.1|london"
+python -m coensio_algo_ai backtest --strategy donchian_atr --file ETH_1h.parquet --sessions asia --genome "donchian_atr|both|49|21|9|59|1.059|1.0|1|27|donchian_atr_exp|fixed|2000.0|0.1|asia"
+python -m coensio_algo_ai backtest --strategy donchian_atr --file ETH_1h.parquet --sessions london --genome "donchian_atr|both|53|20|8|55|0.896|1|0|51|donchian_atr_exp|fixed|2000.0|0.1|london" --is-start 2017.01.01 --oos-cutoff 2026.01.01
 ```
 
 Short form with only the parameter values (order = `[[params]]` in `recipe.toml`):

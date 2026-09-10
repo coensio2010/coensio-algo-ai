@@ -1,11 +1,16 @@
-# market data: only the bundled BTC_1h sample is versioned
+# market data: only the bundled BTC_1h and ETH_1h files are versioned
 datasets/*
 !datasets/BTC_1h.parquet
 !datasets/BTC_1h.manifest.json
+!datasets/ETH_1h.parquet
+!datasets/ETH_1h.manifest.json
 !datasets/README.md
 
-# run outputs
-results/
+# run outputs: everything is ignored except the bundled example report
+results/*
+!results/README.md
+!results/[[]ETH_1h_london[]]_zlema_retrace_*_D20260910.html
+!results/[[]ETH_1h_london[]]_zlema_retrace_*_D20260910.csv
 
 # python
 __pycache__/

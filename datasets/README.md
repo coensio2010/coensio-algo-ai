@@ -8,7 +8,7 @@ Contract:
 - float64 columns `open`, `high`, `low`, `close`, `volume`.
 - Bars sorted, no duplicate timestamps. Malformed bars are repaired or dropped on load (`data_clean.py`).
 
-`BTC_1h.parquet` is bundled (Coinbase BTC-USD, hourly, 2016-01-01 onward, 92k bars) so the quickstart works offline. Everything else is ignored by git.
+`BTC_1h.parquet` (2016-01-01 onward, 92k bars) and `ETH_1h.parquet` (2016-05-18 onward, 89k bars) are bundled (Coinbase, hourly, UTC) so the quickstart works offline. Everything else is ignored by git.
 
 Get data:
 

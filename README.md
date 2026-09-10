@@ -28,7 +28,7 @@ python -m coensio_algo_ai doctor  # everything OK?
 python -m coensio_algo_ai strategies
 ```
 
-BTC hourly data (Coinbase, 2016 onward, 92k bars) ships in `datasets/`, so this works offline:
+BTC and ETH hourly data (Coinbase, 2016 onward, ~90k bars each) ship in `datasets/`, so this works offline:
 
 ```text
 python -m coensio_algo_ai optimize --strategy donchian_atr --file BTC_1h.parquet --sessions none --population 60 --generations 40 --seed 7
@@ -70,6 +70,14 @@ Full-range results
   stability_r2: 0.2430
   ...
 ```
+
+A GA-found genome on the bundled ETH data, London session (its report ships in `results/`, open the `.html`):
+
+```text
+python -m coensio_algo_ai backtest --strategy zlema_retrace --file ETH_1h.parquet --sessions london --genome "zlema_retrace|both|69|35|1.948|20|0.384|0|2.229|1.956|10|16|0|1|zlema_stop_target_time|fixed|2000.0|0.1|london"
+```
+
+220 trades, net_pnl 4846.03, max_dd_usd 118.24 over 2016-2026. In-sample; treat it as a demo of the tooling, not a trading recommendation.
 
 ## Commands
 
@@ -134,8 +142,8 @@ coensio_algo_ai/          Python package (CLI, GA, reporting, data)
 coensio_algo_ai/native_src/  Rust crate (fills, batch evaluation, recipe registry)
 coensio_algo_ai/native/   compiled core (engine_core.pyd / .so / .dylib)
 strategies/<id>/          recipe.toml, genome_fmt.toml, rust/mod.rs
-datasets/                 parquet OHLCV (BTC_1h 2016+ included)
-results/                  reports (git-ignored)
+datasets/                 parquet OHLCV (BTC_1h and ETH_1h 2016+ included)
+results/                  reports (git-ignored, one example report bundled)
 engine_cfg.toml           all settings
 tests/                    pytest
 docs/NEW_STRATEGY.md      strategy authoring guide
