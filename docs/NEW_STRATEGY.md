@@ -11,6 +11,7 @@ python -m coensio_algo_ai new-strategy my_breakout      # scaffold (compiles as-
 python coensio_algo_ai/build_native.py                  # rebuild Rust core
 python -m coensio_algo_ai check --strategy my_breakout  # static + look-ahead gate, must PASS
 python -m coensio_algo_ai optimize --strategy my_breakout --file BTC_1h.parquet --population 30 --generations 20
+python -m coensio_algo_ai sweep --strategy my_breakout --population 30 --generations 20
 ```
 
 ---
