@@ -40,7 +40,7 @@ In-sample / out-of-sample windows (optimize on data up to a cutoff, then backtes
 
 ```text
 python -m coensio_algo_ai optimize --strategy dual_thrust --file BTC_1h.parquet --population 100 --generations 250 --oos-cutoff 2025.01.01
-python -m coensio_algo_ai optimize --strategy dual_thrust --file BTC_1h.parquet --population 100 --generations 250 --is-start 2022.06.01 --oos-cutoff 2025.01.01
+python -m coensio_algo_ai optimize --strategy dual_thrust --file BTC_1h.parquet --population 100 --generations 250 --is-start 2018.01.01 --oos-cutoff 2025.01.01
 python -m coensio_algo_ai backtest --strategy dual_thrust --file BTC_1h.parquet --genome "<best genome>" --is-start 2025.01.01
 ```
 

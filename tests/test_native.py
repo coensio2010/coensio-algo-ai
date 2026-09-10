@@ -65,11 +65,11 @@ def test_forward_parity(native, sample_df, sid):
 
 
 def test_regression_donchian_atr_sample(native, sample_df):
-    """Pin the sample-dataset result so fill / fee / metric changes are noticed."""
+    """Pin the bundled-dataset result (BTC_1h, 2016+) so fill / fee / metric changes are noticed."""
     genome = "donchian_atr|both|40|20|10|50|1.2|2.0|1|48|donchian_atr_exp|fixed|2000.0|0.1|none"
     parsed = parse_genome_str("donchian_atr", genome, load_strategy("donchian_atr").PARAMS)
     res = run_backtest_genome(sample_df, "donchian_atr", parsed.genome, config=_cfg())
     m = res.metrics
-    assert m.trades == 333
-    assert round(m.net_pnl, 2) == 1062.82
-    assert round(m.max_dd, 2) == 1064.65
+    assert m.trades == 699
+    assert round(m.net_pnl, 2) == 1124.81
+    assert round(m.max_dd, 2) == 2138.84

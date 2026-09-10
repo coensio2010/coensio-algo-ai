@@ -28,7 +28,7 @@ python -m coensio_algo_ai doctor  # everything OK?
 python -m coensio_algo_ai strategies
 ```
 
-A BTC hourly sample (2022 onward) ships in `datasets/`, so this works offline:
+BTC hourly data (Coinbase, 2016 onward, 92k bars) ships in `datasets/`, so this works offline:
 
 ```text
 python -m coensio_algo_ai optimize --strategy donchian_atr --file BTC_1h.parquet --sessions none --population 60 --generations 40 --seed 7
@@ -37,16 +37,16 @@ python -m coensio_algo_ai optimize --strategy donchian_atr --file BTC_1h.parquet
 Runs in about 3 seconds on 8 cores. One progress line per generation, then the result table:
 
 ```text
-GA | donchian_atr | BTC_1h.parquet | session=none | 39,836 bars | pop=60 gen=40 | workers=8 (Rust Rayon) | seed=7 | coesnio
-C:01G:040T:00040/00040 rdd:4.74 net_pnl:$2220.53 DD:$468.89 net_avg:$9.78 #227 stab:0.355 ryp:$42 avg_roundtrip_fee:$1.80 total_fees:$408.60 sess:none bet:$2000 fixed best_fit:4.736 0.38ms/str
+GA | donchian_atr | BTC_1h.parquet | session=none | 92,402 bars | pop=60 gen=40 | workers=8 (Rust Rayon) | seed=7 | coesnio
+C:01G:040T:00040/00040 rdd:17.63 net_pnl:$8377.62 DD:$475.28 net_avg:$13.13 #638 stab:0.754 ryp:$-360 avg_roundtrip_fee:$1.81 total_fees:$1154.78 sess:none bet:$2000 fixed best_fit:17.627 0.59ms/str
 
 Top 10 unique genomes
-   rdd | net_pnl |  DD | net_avg |   # |  stab | ryp | avg_fee | total_fees | genome                                                                              | datafile
-  4.74 |    2221 | 469 |    9.78 | 227 | 0.355 |  42 |    1.80 |     408.60 | donchian_atr|both|54|19|13|69|1.22|1.0|1|80|donchian_atr_exp|fixed|2000.0|0.1|none  | BTC_1h.parquet
-  4.68 |    2226 | 476 |    9.72 | 229 | 0.346 |  34 |    1.80 |     412.20 | donchian_atr|both|54|19|13|69|1.218|1.0|1|80|donchian_atr_exp|fixed|2000.0|0.1|none | BTC_1h.parquet
+  rdd | net_pnl |  DD | net_avg |   # |  stab |  ryp | avg_fee | total_fees | genome                                                                               | datafile
+17.63 |    8378 | 475 |   13.13 | 638 | 0.754 | -360 |    1.81 |    1154.78 | donchian_atr|both|35|19|8|30|1.093|2.327|0|20|donchian_atr_exp|fixed|2000.0|0.1|none | BTC_1h.parquet
+17.61 |    8368 | 475 |   13.12 | 638 | 0.754 | -360 |    1.81 |    1154.78 | donchian_atr|both|35|20|8|30|1.093|2.327|0|20|donchian_atr_exp|fixed|2000.0|0.1|none | BTC_1h.parquet
 ```
 
-followed by the full metrics block, a terminal equity / drawdown chart, an HTML report and a trade CSV in `results/`. (Yes, that genome is over-fitted to 4 years of BTC. Read the disclaimer.)
+followed by the full metrics block, a terminal equity / drawdown chart, an HTML report and a trade CSV in `results/`. (Yes, that genome is over-fitted to 10 years of BTC, and it lost money in the most recent year. Read the disclaimer.)
 
 Backtest a genome (copy it from the optimize output):
 
@@ -58,16 +58,16 @@ python -m coensio_algo_ai backtest --strategy donchian_atr --file BTC_1h.parquet
 Full-range results
   session: none
   bet_size: $2000 fixed
-  net_pnl: 1062.82
-  max_dd_usd: 1064.65
-  ret_dd_ratio: 1.00
-  total_trades: 333
-  win_rate: 39.04
-  net_avg: 3.19
-  total_fees: 599.23
-  profit_factor: 1.13
-  sharpe: 0.440
-  stability_r2: 0.2771
+  net_pnl: 1124.81
+  max_dd_usd: 2138.84
+  ret_dd_ratio: 0.53
+  total_trades: 699
+  win_rate: 39.06
+  net_avg: 1.61
+  total_fees: 1259.37
+  profit_factor: 1.05
+  sharpe: 0.168
+  stability_r2: 0.2430
   ...
 ```
 
@@ -134,7 +134,7 @@ coensio_algo_ai/          Python package (CLI, GA, reporting, data)
 coensio_algo_ai/native_src/  Rust crate (fills, batch evaluation, recipe registry)
 coensio_algo_ai/native/   compiled core (engine_core.pyd / .so / .dylib)
 strategies/<id>/          recipe.toml, genome_fmt.toml, rust/mod.rs
-datasets/                 parquet OHLCV (BTC_1h sample included)
+datasets/                 parquet OHLCV (BTC_1h 2016+ included)
 results/                  reports (git-ignored)
 engine_cfg.toml           all settings
 tests/                    pytest
