@@ -209,12 +209,13 @@ Expect a sensible mid-range genome to produce trades on BTC_1h. Zero trades usua
 - [ ] every param has `type`, is read in Rust with the matching helper, nothing unread
 - [ ] template order == `[[params]]` order, ends with the four fixed fields
 - [ ] prior-window levels, no entry on arm bar, exits before entries
-- [ ] native rebuilt, `strategies` lists it, `check` PASS
+- [ ] local `build_native.py` so `strategies` lists it, `check` PASS (do not commit the binary)
 - [ ] smoke `optimize` produces trades without a panic
+- [ ] PR contains only the three files under `strategies/<id>/` (see `CONTRIBUTING.md`)
 
 ## 9. Do not
 
-- Add per-strategy Python wrappers or edit generated registry files.
+- Add per-strategy Python wrappers, edit generated registry files, or commit `engine_core` binaries. One engine; CI compiles `strategies/` from source.
 - Put absolute machine paths, dates of previous runs, or "champion genome" notes in strategy files.
 - Invent engine APIs. Stick to `MarketData`, `Recipe`, `PluginSpec`, `BatchContext`, `SignalBuffers`.
 - Judge a strategy on one in-sample GA run. Use `--is-start/--oos-cutoff` splits, `validate` (MCPT) and `sweep` across markets.

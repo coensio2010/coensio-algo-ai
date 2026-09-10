@@ -140,7 +140,7 @@ python -m coensio_algo_ai sweep --strategy my_breakout --population 30 --generat
 
 `sweep` uses `[SWEEP]` in `engine_cfg.toml` (tickers x sessions x cycles). Bundled default is `BTC_1h` across `none` / `new_york` / `london` / `asia`.
 
-Read `docs/NEW_STRATEGY.md` before writing signal code. It lists the causality rules the gate enforces. Agents: `AGENTS.md`.
+Read `docs/NEW_STRATEGY.md` before writing signal code. It lists the causality rules the gate enforces. Agents: `AGENTS.md`. PRs: `CONTRIBUTING.md` (strategy source only, not a new engine binary).
 
 Included strategies (all long/short capable): `donchian_atr`, `donchian_chan`, `dual_thrust`, `ib_retrace`, `keltner_retrace`, `nr_expand`, `orb_retrace`, `poc_retrace`, `ttm_squeeze`, `zlema_retrace`. They are research examples, not trading advice.
 
@@ -157,6 +157,7 @@ engine_cfg.toml           all settings
 tests/                    pytest
 docs/NEW_STRATEGY.md      strategy authoring guide
 docs/README.md            command cheat sheet
+CONTRIBUTING.md           PRs: strategy folder only, CI rebuilds the core
 AGENTS.md                 instructions for AI agents
 ```
 
