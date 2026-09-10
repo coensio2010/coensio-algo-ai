@@ -134,7 +134,7 @@ mod tests {
         )
         .unwrap();
         data.set_session_days(vec![4, 4, 9]).unwrap();
-        let recipe = crate::recipe::get_recipe("BS1_breakout").unwrap();
+        let recipe = crate::recipe::get_recipe("donchian_atr").unwrap();
         let ctx = BatchContext::for_recipe(&data, &recipe);
         assert_eq!(ctx.session_days.unwrap().as_slice(), &[4, 4, 9]);
     }

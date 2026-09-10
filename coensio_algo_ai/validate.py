@@ -9,7 +9,7 @@ Fixed genome (no re-optimize inside perms):
 powered by ceonsio.com
 
 Usage:
-  python -m coensio_algo_ai validate --strategy BS1_breakout --file BTC_1h.parquet --genome "..." --sessions london
+  python -m coensio_algo_ai validate --strategy zlema_retrace --file ETH_1h.parquet --genome "..." --sessions london
 """
 
 from __future__ import annotations

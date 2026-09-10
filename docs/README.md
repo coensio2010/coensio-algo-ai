@@ -32,7 +32,7 @@ python -m coensio_algo_ai import-csv export.csv EURUSD_1h --tz Europe/London --s
 
 ```text
 python -m coensio_algo_ai optimize --strategy donchian_atr --file BTC_1h.parquet --sessions none --population 50 --generations 100 --workers 8
-python -m coensio_algo_ai optimize --strategy BS1_breakout --file BTC_1h.parquet --sessions london --population 100 --generations 250 --workers 8
+python -m coensio_algo_ai optimize --strategy zlema_retrace --file ETH_1h.parquet --sessions london --population 100 --generations 250 --workers 8
 python -m coensio_algo_ai optimize --strategy dual_thrust --file BTC_1h.parquet --population 100 --generations 250 --workers 8
 ```
 
@@ -61,7 +61,6 @@ The zlema_retrace ETH london run below is the example report bundled in `results
 
 ```text
 python -m coensio_algo_ai backtest --strategy donchian_atr --file BTC_1h.parquet --sessions none --genome "donchian_atr|both|40|20|10|50|1.2|2.0|1|48|donchian_atr_exp|fixed|2000.0|0.1|none"
-python -m coensio_algo_ai backtest --strategy BS1_breakout --file BTC_1h.parquet --sessions london --genome "BS1_breakout|long|7|17|1.358|opposite_donchian|26|filter1|2|17|13|filter2|22|8|5|fixed|2000.0|0.1|london"
 python -m coensio_algo_ai backtest --strategy dual_thrust --file ETH_1h.parquet --sessions london --genome "dual_thrust|both|25|0.431|0.994|31|2|9|26|2.0|flip_trail_time|11|fixed|2000.0|0.1|london"
 python -m coensio_algo_ai backtest --strategy zlema_retrace --file ETH_1h.parquet --sessions london --genome "zlema_retrace|both|69|35|1.948|20|0.384|0|2.229|1.956|10|16|0|1|zlema_stop_target_time|fixed|2000.0|0.1|london"
 python -m coensio_algo_ai backtest --strategy donchian_atr --file ETH_1h.parquet --sessions asia --genome "donchian_atr|both|49|21|9|59|1.059|1.0|1|27|donchian_atr_exp|fixed|2000.0|0.1|asia"
@@ -79,7 +78,7 @@ Outputs: metrics block, terminal equity/drawdown chart, `results/<name>.html`, `
 ## Look-ahead check (forward parity)
 
 ```text
-python -m coensio_algo_ai backtest-forward --strategy BS1_breakout --file BTC_1h.parquet --sessions london --genome "BS1_breakout|long|7|17|1.358|opposite_donchian|26|filter1|2|17|13|filter2|22|8|5|fixed|2000.0|0.1|london" --max-bars 5000
+python -m coensio_algo_ai backtest-forward --strategy zlema_retrace --file ETH_1h.parquet --sessions london --genome "zlema_retrace|both|69|35|1.948|20|0.384|0|2.229|1.956|10|16|0|1|zlema_stop_target_time|fixed|2000.0|0.1|london" --max-bars 5000
 python -m coensio_algo_ai backtest-forward --cases --file BTC_1h.parquet --max-bars 3000      # every strategy, mid-range genome
 ```
 
@@ -88,7 +87,7 @@ Full-series forward is O(N^2); use `--max-bars` on long histories. Expect `RESUL
 ## MCPT validation
 
 ```text
-python -m coensio_algo_ai validate --strategy BS1_breakout --file BTC_1h.parquet --sessions london --genome "BS1_breakout|long|7|17|1.358|opposite_donchian|26|filter1|2|17|13|filter2|22|8|5|fixed|2000.0|0.1|london"
+python -m coensio_algo_ai validate --strategy zlema_retrace --file ETH_1h.parquet --sessions london --genome "zlema_retrace|both|69|35|1.948|20|0.384|0|2.229|1.956|10|16|0|1|zlema_stop_target_time|fixed|2000.0|0.1|london"
 python -m coensio_algo_ai validate --strategy donchian_atr --file BTC_1h.parquet --sessions none --genome "<genome>" --n-perm 200 --alpha 0.05 --json-out results/mcpt_donchian.json
 ```
 

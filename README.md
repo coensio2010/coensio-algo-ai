@@ -142,7 +142,7 @@ python -m coensio_algo_ai sweep --strategy my_breakout --population 30 --generat
 
 Read `docs/NEW_STRATEGY.md` before writing signal code. It lists the causality rules the gate enforces. Agents: `AGENTS.md`.
 
-Included strategies (all long/short capable unless noted): `BS1_breakout` (POI breakout with switchable filters, long), `donchian_atr`, `donchian_chan`, `dual_thrust`, `ib_retrace`, `keltner_retrace`, `nr_expand`, `orb_retrace`, `poc_retrace`, `ttm_squeeze`, `zlema_retrace`. They are research examples, not trading advice.
+Included strategies (all long/short capable): `donchian_atr`, `donchian_chan`, `dual_thrust`, `ib_retrace`, `keltner_retrace`, `nr_expand`, `orb_retrace`, `poc_retrace`, `ttm_squeeze`, `zlema_retrace`. They are research examples, not trading advice.
 
 ## Repository layout
 
