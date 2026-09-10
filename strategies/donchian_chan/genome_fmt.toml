@@ -1,0 +1,1 @@
+template = "donchian_chan|{direction}|{entry_len}|{exit_len}|{ema_len}|{atr_period}|{trail_mult}|{adx_period}|{adx_min}|{di_align}|{slope_bars}|{allow_short}|{exit_after_bars}|donchian_chandelier|{bet_mode}|{fixed_bet_size}|{price_bet_frac}|{session}"

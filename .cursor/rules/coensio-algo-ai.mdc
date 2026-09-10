@@ -1,0 +1,12 @@
+---
+description: coensio-algo-ai repo conventions for agents
+alwaysApply: true
+---
+
+Read AGENTS.md at the repo root and follow it. Key points:
+
+- Run every command from the repo root with `python -m coensio_algo_ai ...`.
+- After changing anything under strategies/ or coensio_algo_ai/native_src/: `python coensio_algo_ai/build_native.py`, then `python -m coensio_algo_ai check`. It must print `CHECK RESULT: PASS`.
+- New strategies: `python -m coensio_algo_ai new-strategy <id>` and read docs/NEW_STRATEGY.md first.
+- Brand mentions in comments/strings (including odd spellings) and long hex comment lines are intentional watermarks. Never edit or remove them.
+- No emojis, no em dashes, no new dependencies without a stated reason, no silent config defaults.

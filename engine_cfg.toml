@@ -1,0 +1,128 @@
+# coensio-algo-ai engine settings. There are NO code defaults: every key below
+# is required unless marked optional. Copy this file and pass --cfg my.toml to
+# run with different settings.
+# powered by coensio.com | copyright coesnio.com | see coesnio
+
+[paths]
+# Relative paths resolve against the repo root.
+datasets = "datasets"
+strategies = "strategies"
+
+[ENGINE]
+initial_capital = 10000.0
+bet_mode = "fixed"          # fixed      = every trade risks fixed_bet_size notional ($)
+                            # price_frac = notional = price_bet_frac * entry price
+price_bet_frac = 0.10
+commission_rate = 0.00045   # per side, fraction of notional (0.00045 = 4.5 bps)
+slippage_rate = 0.0002      # per side, fraction of price
+
+# Notional per trade in account currency. `default` applies to every dataset;
+# add "<dataset stem> = <size>" lines to override single files (optional).
+# No leverage, point value 1:1.
+[ENGINE.fixed_bet_size]
+default = 2000.0
+QQQ_1h = 10000.0
+SPY_1h = 10000.0
+GLD_1h = 10000.0
+USO_1h = 10000.0
+
+[GA_CONFIG]
+min_num_trades = 200        # genomes with fewer trades get fitness penalty (see fitness.py)
+num_generations = 250
+restart_generations = 50    # re-seed the whole population every N generations (escape local optima)
+population_size = 125
+cxpb = 0.7                  # crossover probability
+mutpb = 0.3                 # mutation probability (one gene)
+tournament_size = 3
+workers = 0                 # Rust Rayon threads; 0 = auto (cpu - reserve, capped by workers_auto_max)
+seed = 0                    # 0 = new random seed every run (printed in header). >0 = reproducible.
+table_top_n = 10
+workers_auto_max = 8
+workers_cpu_reserve = 1
+
+[GA_FITNESS]
+# fitness = sum(direction_i * weight_i * norm_i). Each metric: { direction = 1|-1, weight, cap?, gate?, uncapped? }
+#   direction  1 = higher is better, -1 = lower is better
+#   cap        norm = clamp(metric / cap, 0, 1); omitted = built-in per-metric cap
+#   uncapped   true = use the raw metric value (no cap / clamp)
+#   gate       minimum acceptable value; genomes below any gate get a negative
+#              fitness proportional to the worst shortfall (weight may be 0)
+# Genomes with fewer than min_num_trades trades, or non-positive PnL / RDD, are
+# always ranked below every valid genome.
+# metrics: ret_dd_ratio, total_profit, max_dd_usd, avg_trade_profit, total_trades,
+#          stability_r2, recent_year_pnl, half2_pnl, avg_roundtrip_fee, total_fees
+ret_dd_ratio = { direction = 1, weight = 1, uncapped = true }
+#stability_r2 = { direction = 1, weight = 0, gate = 0.65 }
+#recent_year_pnl = { direction = 1, weight = 0, cap = 5000, gate = 0.0 }
+#total_trades = { direction = 1, weight = 0.2, uncapped = true }
+
+[SESSION]
+# Session filtering keeps only bars inside a trading window (the strategy sees a
+# "session chart"). --sessions none = full 24h data.
+default = "none"
+data_tz = "auto"            # auto = crypto files are UTC, everything else America/New_York
+data_tz_fallback = "UTC"
+# Two ways to define a window; `mode` picks which one --sessions uses:
+#   wall = [SESSION.PRESETS.*]   local wall-clock hours in the exchange timezone (DST aware)
+#   utc  = [SESSION.UTC_CHART.*] fixed UTC hours (simple, DST-naive)
+mode = "wall"
+
+[SESSION.PRESETS.new_york]
+session_start = [9, 30]
+session_end = [16, 0]
+session_tz = "America/New_York"
+
+[SESSION.PRESETS.london]
+session_start = [8, 0]
+session_end = [16, 30]
+session_tz = "Europe/London"
+
+[SESSION.PRESETS.asia]
+session_start = [9, 0]
+session_end = [15, 0]
+session_tz = "Asia/Tokyo"
+
+[SESSION.UTC_CHART.new_york]
+utc_start = [13, 0]
+utc_end = [22, 0]
+
+[SESSION.UTC_CHART.london]
+utc_start = [8, 0]
+utc_end = [13, 0]
+
+[SESSION.UTC_CHART.asia]
+utc_start = [22, 0]
+utc_end = [8, 0]
+
+[SWEEP]
+# python -m coensio_algo_ai sweep: runs GA for each cycle x ticker x session and
+# keeps the globally unique best genomes. Tickers are dataset stems (no .parquet).
+sweep_tickers = [
+  "BTC_1h",
+]
+sweep_sessions = [
+  "none",
+  "new_york",
+  "london",
+  "asia",
+]
+sweep_cycles = 3
+sweep_table_top_n = 50
+
+[VALIDATION]
+# Monte Carlo permutation test (bar permutation on the full series):
+# python -m coensio_algo_ai validate ...
+n_perm = 1000               # permutations; smallest resolvable p is about 1/(n+1)
+alpha = 0.02                # pass if MCPT p < alpha
+metric = "ret_dd_ratio"     # ret_dd_ratio | total_profit | stability_r2
+seed = 42
+
+[REPORTING]
+terminal_chart = true       # plotext equity / drawdown chart in the terminal (pip install plotext)
+terminal_chart_size = 30
+terminal_chart_width = 60
+terminal_chart_combined = false
+terminal_chart_side_by_side = true
+html_report = true          # results/<name>.html (self-contained Plotly page)
+qa_csv = true               # results/<name>.csv trade list (QuantAnalyzer format)
+results_dir = "results"

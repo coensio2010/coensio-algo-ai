@@ -1,0 +1,1 @@
+template = "poc_retrace|{direction}|{profile_len}|{rvol_period}|{rvol_min}|{retest_window}|{retest_tol_atr}|{allow_short}|{target_mult}|{exit_after_bars}|{atr_period}|{min_va_atr}|{min_break_atr}|poc_stop_target_time|{bet_mode}|{fixed_bet_size}|{price_bet_frac}|{session}"

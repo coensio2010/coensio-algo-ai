@@ -1,0 +1,84 @@
+# zlema_retrace - Ehlers/Way ZLEMA breakout + retrace-hold continuation.
+# Arm on close beyond ZLEMA (optional RVOL + min break ATR). Enter only when
+# price retraces to the armed ZLEMA within retest_window and close holds beyond
+# that ZLEMA. Exit: ATR stop beyond armed ZLEMA, measured-move (k x ATR from
+# ZLEMA), or time. Session reset clears pending.
+id = "zlema_retrace"
+
+[plugin]
+type = "zlema_retrace"
+direction = "both"
+exit_method = "zlema_stop_target_time"
+session_utc_start = [14, 30]
+
+[[params]]
+name = "zlema_period"
+type = "int"
+min = 12.0
+max = 100.0
+
+[[params]]
+name = "rvol_period"
+type = "int"
+min = 10.0
+max = 40.0
+
+[[params]]
+name = "rvol_min"
+type = "float"
+min = 0.8
+max = 2.5
+
+[[params]]
+name = "retest_window"
+type = "int"
+min = 3.0
+max = 20.0
+
+[[params]]
+name = "retest_tol_atr"
+type = "float"
+min = 0.05
+max = 0.6
+
+[[params]]
+name = "allow_short"
+type = "int"
+min = 0.0
+max = 1.0
+
+[[params]]
+name = "target_mult"
+type = "float"
+min = 0.5
+max = 3.0
+
+[[params]]
+name = "stop_mult"
+type = "float"
+min = 0.3
+max = 2.5
+
+[[params]]
+name = "exit_after_bars"
+type = "int"
+min = 4.0
+max = 40.0
+
+[[params]]
+name = "atr_period"
+type = "int"
+min = 8.0
+max = 24.0
+
+[[params]]
+name = "min_break_atr"
+type = "float"
+min = 0.0
+max = 1.0
+
+[[params]]
+name = "skip_bars"
+type = "int"
+min = 0.0
+max = 6.0

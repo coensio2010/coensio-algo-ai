@@ -1,0 +1,1 @@
+template = "donchian_atr|{direction}|{entry_len}|{exit_len}|{atr_fast}|{atr_slow}|{atr_ratio_min}|{stop_mult}|{allow_short}|{exit_after_bars}|donchian_atr_exp|{bet_mode}|{fixed_bet_size}|{price_bet_frac}|{session}"

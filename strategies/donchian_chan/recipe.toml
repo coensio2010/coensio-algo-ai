@@ -1,0 +1,77 @@
+# donchian_chan - prior Donchian break + prior EMA + EMA slope
+# + prior ADX/DI + ATR Chandelier (ATR[i-1]). No daily flatten.
+# Long: close > prior entry high, close > ema[i-1], ema rising,
+#       adx[i-1] >= adx_min, optional +DI > -DI.
+id = "donchian_chan"
+
+[plugin]
+type = "donchian_chan"
+direction = "both"
+exit_method = "donchian_chandelier"
+session_utc_start = [14, 30]
+
+[[params]]
+name = "entry_len"
+type = "int"
+min = 20.0
+max = 55.0
+
+[[params]]
+name = "exit_len"
+type = "int"
+min = 8.0
+max = 24.0
+
+[[params]]
+name = "ema_len"
+type = "int"
+min = 60.0
+max = 180.0
+
+[[params]]
+name = "atr_period"
+type = "int"
+min = 10.0
+max = 24.0
+
+[[params]]
+name = "trail_mult"
+type = "float"
+min = 2.0
+max = 4.0
+
+[[params]]
+name = "adx_period"
+type = "int"
+min = 10.0
+max = 20.0
+
+[[params]]
+name = "adx_min"
+type = "float"
+min = 12.0
+max = 28.0
+
+[[params]]
+name = "di_align"
+type = "int"
+min = 0.0
+max = 1.0
+
+[[params]]
+name = "slope_bars"
+type = "int"
+min = 2.0
+max = 12.0
+
+[[params]]
+name = "allow_short"
+type = "int"
+min = 0.0
+max = 1.0
+
+[[params]]
+name = "exit_after_bars"
+type = "int"
+min = 40.0
+max = 180.0

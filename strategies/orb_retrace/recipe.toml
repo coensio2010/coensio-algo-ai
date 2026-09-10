@@ -1,0 +1,85 @@
+# orb_retrace - Session opening-range breakout + retrace-hold continuation.
+# First orb_bars of each session freeze OR high/low. Arm on close beyond
+# the frozen range (optional RVOL + ATR buffer). Enter only after a retrace
+# touch of the armed OR level with close holding beyond it. Never enter on
+# the arm bar. Exit: ATR stop beyond armed level, measured-move (k x OR
+# height or ATR), or time. Session reset clears pending and flattens.
+id = "orb_retrace"
+
+[plugin]
+type = "orb_retrace"
+direction = "both"
+exit_method = "orb_stop_target_time"
+session_utc_start = [14, 30]
+
+[[params]]
+name = "orb_bars"
+type = "int"
+min = 1.0
+max = 4.0
+
+[[params]]
+name = "rvol_period"
+type = "int"
+min = 10.0
+max = 40.0
+
+[[params]]
+name = "rvol_min"
+type = "float"
+min = 0.8
+max = 2.5
+
+[[params]]
+name = "retest_window"
+type = "int"
+min = 3.0
+max = 20.0
+
+[[params]]
+name = "retest_tol_atr"
+type = "float"
+min = 0.05
+max = 0.6
+
+[[params]]
+name = "allow_short"
+type = "int"
+min = 0.0
+max = 1.0
+
+[[params]]
+name = "target_mult"
+type = "float"
+min = 0.8
+max = 3.5
+
+[[params]]
+name = "stop_mult"
+type = "float"
+min = 0.3
+max = 2.5
+
+[[params]]
+name = "exit_after_bars"
+type = "int"
+min = 4.0
+max = 40.0
+
+[[params]]
+name = "atr_period"
+type = "int"
+min = 8.0
+max = 24.0
+
+[[params]]
+name = "buffer_atr"
+type = "float"
+min = 0.0
+max = 0.4
+
+[[params]]
+name = "skip_bars"
+type = "int"
+min = 0.0
+max = 2.0

@@ -1,0 +1,1 @@
+template = "dual_thrust|{direction}|{range_period}|{k_buy}|{k_sell}|{sma_filter}|{range_mode}|{buffer_bps}|{atr_period}|{atr_trail_mult}|flip_trail_time|{exit_after_bars}|{bet_mode}|{fixed_bet_size}|{price_bet_frac}|{session}"

@@ -1,0 +1,61 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: ${{ matrix.os }} / py${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: coensio_algo_ai/native_src
+
+      - name: Python deps
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements.txt pytest
+
+      - name: Rust unit tests
+        working-directory: coensio_algo_ai/native_src
+        run: cargo test --release
+
+      - name: Build native core
+        run: python coensio_algo_ai/build_native.py
+
+      - name: Doctor
+        run: python -m coensio_algo_ai doctor
+
+      - name: Strategy gate (static + forward parity)
+        run: python -m coensio_algo_ai check --max-bars 1500
+
+      - name: pytest
+        run: python -m pytest
+
+      - name: Smoke optimize
+        run: python -m coensio_algo_ai optimize --strategy donchian_atr --file BTC_1h.parquet --sessions none --population 20 --generations 5 --seed 1 --workers 2
+
+      - name: Upload native binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: engine_core-${{ matrix.os }}-py${{ matrix.python }}
+          path: |
+            coensio_algo_ai/native/engine_core*.pyd
+            coensio_algo_ai/native/engine_core*.so
+            coensio_algo_ai/native/engine_core*.dylib
+          if-no-files-found: error

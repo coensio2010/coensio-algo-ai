@@ -1,0 +1,1 @@
+template = "ib_retrace|{direction}|{ib_bars}|{rvol_period}|{rvol_min}|{retest_window}|{retrace_pct}|{allow_short}|{target_mult}|{stop_pct}|{exit_after_bars}|{atr_period}|{buffer_atr}|{min_ib_atr}|{max_ib_atr}|{skip_bars}|ib_stop_target_time|{bet_mode}|{fixed_bet_size}|{price_bet_frac}|{session}"

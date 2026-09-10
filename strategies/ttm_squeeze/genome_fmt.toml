@@ -1,0 +1,1 @@
+template = "ttm_squeeze|{direction}|{bb_period}|{bb_mult}|{kc_mult}|{atr_period}|{mom_period}|{mom_smooth}|{min_squeeze_bars}|{allow_short}|mom_fade_time|{mom_exit_bars}|{exit_after_bars}|{bet_mode}|{fixed_bet_size}|{price_bet_frac}|{session}"

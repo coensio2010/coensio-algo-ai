@@ -1,0 +1,79 @@
+# poc_retrace - rolling Volume Profile POC breakout + retrace-hold continuation.
+# Rolling OHLCV volume profile -> prior POC (+ VAH/VAL for stop/target width).
+# Arm on close beyond POC (optional RVOL + min VA width + min break ATR).
+# Enter only when price retraces to POC within retest_window and close holds
+# beyond the broken POC. Exit: opposite VA edge stop (VAL long / VAH short),
+# measured-move (k x VA width from POC), or time.
+id = "poc_retrace"
+
+[plugin]
+type = "poc_retrace"
+direction = "both"
+exit_method = "poc_stop_target_time"
+session_utc_start = [14, 30]
+
+[[params]]
+name = "profile_len"
+type = "int"
+min = 16.0
+max = 80.0
+
+[[params]]
+name = "rvol_period"
+type = "int"
+min = 10.0
+max = 40.0
+
+[[params]]
+name = "rvol_min"
+type = "float"
+min = 0.8
+max = 2.5
+
+[[params]]
+name = "retest_window"
+type = "int"
+min = 3.0
+max = 20.0
+
+[[params]]
+name = "retest_tol_atr"
+type = "float"
+min = 0.05
+max = 0.6
+
+[[params]]
+name = "allow_short"
+type = "int"
+min = 0.0
+max = 1.0
+
+[[params]]
+name = "target_mult"
+type = "float"
+min = 0.5
+max = 3.0
+
+[[params]]
+name = "exit_after_bars"
+type = "int"
+min = 4.0
+max = 40.0
+
+[[params]]
+name = "atr_period"
+type = "int"
+min = 8.0
+max = 24.0
+
+[[params]]
+name = "min_va_atr"
+type = "float"
+min = 0.0
+max = 2.0
+
+[[params]]
+name = "min_break_atr"
+type = "float"
+min = 0.0
+max = 1.0

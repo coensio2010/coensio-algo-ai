@@ -1,0 +1,71 @@
+# ttm_squeeze - John Carter TTM Squeeze (BB inside KC compression -> fire + momentum).
+# Squeeze ON when Bollinger Bands sit inside Keltner Channels. Entry on fire
+# (first OFF after min ON bars) with momentum sign. Exit on adverse momentum
+# streak or time stop. Close-confirmed; engine fills next open.
+id = "ttm_squeeze"
+
+[plugin]
+type = "ttm_squeeze"
+direction = "both"
+exit_method = "mom_fade_time"
+session_utc_start = [14, 30]
+
+[[params]]
+name = "bb_period"
+type = "int"
+min = 10.0
+max = 30.0
+
+[[params]]
+name = "bb_mult"
+type = "float"
+min = 1.5
+max = 2.5
+
+[[params]]
+name = "kc_mult"
+type = "float"
+min = 1.0
+max = 2.0
+
+[[params]]
+name = "atr_period"
+type = "int"
+min = 8.0
+max = 20.0
+
+[[params]]
+name = "mom_period"
+type = "int"
+min = 8.0
+max = 24.0
+
+[[params]]
+name = "mom_smooth"
+type = "int"
+min = 2.0
+max = 6.0
+
+[[params]]
+name = "min_squeeze_bars"
+type = "int"
+min = 1.0
+max = 8.0
+
+[[params]]
+name = "allow_short"
+type = "int"
+min = 0.0
+max = 1.0
+
+[[params]]
+name = "mom_exit_bars"
+type = "int"
+min = 1.0
+max = 3.0
+
+[[params]]
+name = "exit_after_bars"
+type = "int"
+min = 4.0
+max = 40.0

@@ -1,0 +1,98 @@
+# ib_retrace - Session Initial Balance break + percent-into-range retrace-hold.
+# First ib_bars of each session freeze IB high/low (classic first-hour on 1h).
+# Arm on close beyond frozen IB (optional RVOL + ATR buffer + IB-width filter).
+# Enter only after price retraces retrace_pct of IB height INTO the box and
+# close holds on the break side of that entry level. Never enter on the arm bar.
+# Exit: stop at stop_pct of IB into the box, target = target_mult x IB height
+# beyond the IB extreme, or time. Session reset clears pending and flattens.
+id = "ib_retrace"
+
+[plugin]
+type = "ib_retrace"
+direction = "both"
+exit_method = "ib_stop_target_time"
+session_utc_start = [14, 30]
+
+[[params]]
+name = "ib_bars"
+type = "int"
+min = 1.0
+max = 2.0
+
+[[params]]
+name = "rvol_period"
+type = "int"
+min = 10.0
+max = 40.0
+
+[[params]]
+name = "rvol_min"
+type = "float"
+min = 0.8
+max = 2.5
+
+[[params]]
+name = "retest_window"
+type = "int"
+min = 3.0
+max = 24.0
+
+[[params]]
+name = "retrace_pct"
+type = "float"
+min = 0.1
+max = 0.5
+
+[[params]]
+name = "allow_short"
+type = "int"
+min = 0.0
+max = 1.0
+
+[[params]]
+name = "target_mult"
+type = "float"
+min = 0.4
+max = 2.5
+
+[[params]]
+name = "stop_pct"
+type = "float"
+min = 0.35
+max = 0.85
+
+[[params]]
+name = "exit_after_bars"
+type = "int"
+min = 4.0
+max = 40.0
+
+[[params]]
+name = "atr_period"
+type = "int"
+min = 8.0
+max = 24.0
+
+[[params]]
+name = "buffer_atr"
+type = "float"
+min = 0.0
+max = 0.4
+
+[[params]]
+name = "min_ib_atr"
+type = "float"
+min = 0.2
+max = 1.5
+
+[[params]]
+name = "max_ib_atr"
+type = "float"
+min = 1.5
+max = 6.0
+
+[[params]]
+name = "skip_bars"
+type = "int"
+min = 0.0
+max = 2.0

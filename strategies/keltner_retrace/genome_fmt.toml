@@ -1,0 +1,1 @@
+template = "keltner_retrace|{direction}|{ema_period}|{kc_mult}|{rvol_period}|{rvol_min}|{retest_window}|{retest_tol_atr}|{allow_short}|{target_mult}|{stop_mult}|{exit_after_bars}|{atr_period}|{min_break_atr}|{skip_bars}|kc_stop_target_time|{bet_mode}|{fixed_bet_size}|{price_bet_frac}|{session}"

@@ -1,0 +1,61 @@
+# nr_expand - Crabel NR compression then expansion breakout.
+# Prior completed bar is NR if its range is the min of the last nr_period
+# ranges (window includes that bar, excludes the current bar). Freeze that
+# bar's high/low. Enter only on a later bar whose close breaks the frozen
+# range by buffer*ATR. Never enter on the NR/arm bar. Exit: ATR stop,
+# ATR target, or time. Session change clears pending and flattens.
+id = "nr_expand"
+
+[plugin]
+type = "nr_expand"
+direction = "both"
+exit_method = "atr_stop_target_time"
+session_utc_start = [14, 30]
+
+[[params]]
+name = "nr_period"
+type = "int"
+min = 4.0
+max = 16.0
+
+[[params]]
+name = "arm_window"
+type = "int"
+min = 1.0
+max = 8.0
+
+[[params]]
+name = "buffer_atr"
+type = "float"
+min = 0.0
+max = 0.35
+
+[[params]]
+name = "atr_period"
+type = "int"
+min = 8.0
+max = 24.0
+
+[[params]]
+name = "stop_mult"
+type = "float"
+min = 0.8
+max = 2.8
+
+[[params]]
+name = "target_mult"
+type = "float"
+min = 1.2
+max = 4.0
+
+[[params]]
+name = "allow_short"
+type = "int"
+min = 0.0
+max = 1.0
+
+[[params]]
+name = "exit_after_bars"
+type = "int"
+min = 4.0
+max = 36.0

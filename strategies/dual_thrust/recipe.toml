@@ -1,0 +1,64 @@
+# dual_thrust - open-anchored Dual Thrust breakout (Toshchakov) with ATR trail.
+# Buy/Sell lines = open +/- k * prior-N range (+ optional bps buffer). Entry on
+# close through a line (+ optional SMA filter). Exit: flip, ATR trail, or time.
+id = "dual_thrust"
+
+[plugin]
+type = "dual_thrust"
+direction = "both"
+exit_method = "flip_trail_time"
+session_utc_start = [14, 30]
+
+[[params]]
+name = "range_period"
+type = "int"
+min = 12.0
+max = 30.0
+
+[[params]]
+name = "k_buy"
+type = "float"
+min = 0.15
+max = 0.55
+
+[[params]]
+name = "k_sell"
+type = "float"
+min = 0.35
+max = 1.10
+
+[[params]]
+name = "sma_filter"
+type = "int"
+min = 0.0
+max = 140.0
+
+[[params]]
+name = "range_mode"
+type = "int"
+min = 0.0
+max = 2.0
+
+[[params]]
+name = "buffer_bps"
+type = "float"
+min = 0.0
+max = 16.0
+
+[[params]]
+name = "atr_period"
+type = "int"
+min = 4.0
+max = 32.0
+
+[[params]]
+name = "atr_trail_mult"
+type = "float"
+min = 1.0
+max = 4.0
+
+[[params]]
+name = "exit_after_bars"
+type = "int"
+min = 6.0
+max = 28.0

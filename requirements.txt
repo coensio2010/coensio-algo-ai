@@ -1,0 +1,8 @@
+numpy>=1.26
+pandas>=2.0
+pyarrow>=14.0
+requests>=2.31
+plotext>=5.2
+plotly>=5.20
+yfinance>=1.0
+maturin>=1.14,<2.0

@@ -1,0 +1,28 @@
+# market data: only the bundled BTC_1h sample is versioned
+datasets/*
+!datasets/BTC_1h.parquet
+!datasets/BTC_1h.manifest.json
+!datasets/README.md
+
+# run outputs
+results/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+
+# rust build outputs. The compiled abi3 binary in coensio_algo_ai/native/ IS
+# versioned (Windows x64) so users without Rust can run immediately; rebuild
+# with build_native.py after changing strategies/ or the Rust core.
+coensio_algo_ai/native_src/target/
+coensio_algo_ai/native/*.pdb
+coensio_algo_ai/native/*.tmp
+
+.DS_Store
+Thumbs.db

@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "coensio-algo-ai"
+dynamic = ["version"]
+description = "Ultra fast GA backtesting and strategy research engine (Python CLI + Rust core), built for AI-agent driven strategy development."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+authors = [{ name = "coensio", email = "info@coensio.com" }]
+keywords = ["backtesting", "trading", "genetic-algorithm", "rust", "quant", "ai-agents"]
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.0",
+  "pyarrow>=14.0",
+  "requests>=2.31",
+  "plotext>=5.2",
+  "plotly>=5.20",
+  "yfinance>=1.0",
+]
+
+[project.optional-dependencies]
+build = ["maturin>=1.14,<2.0"]
+test = ["pytest>=8.0"]
+
+[project.urls]
+Homepage = "https://coensio.com"
+Repository = "https://github.com/coensio2010/coensio-algo-ai"
+
+[project.scripts]
+calgo = "coensio_algo_ai.cli:main"
+
+[tool.setuptools]
+packages = ["coensio_algo_ai"]
+
+[tool.setuptools.dynamic]
+version = { file = "coensio_algo_ai/VERSION" }
+
+[tool.setuptools.package-data]
+coensio_algo_ai = ["VERSION", "native/engine_core*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
