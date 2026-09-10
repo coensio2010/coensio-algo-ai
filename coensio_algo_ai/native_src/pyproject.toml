@@ -13,3 +13,4 @@ dynamic = ["version"]
 
 [tool.maturin]
 module-name = "engine_core"
+features = ["extension-module"]

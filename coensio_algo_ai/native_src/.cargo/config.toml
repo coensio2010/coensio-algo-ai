@@ -1,8 +1,0 @@
-# macOS: a pyo3 extension module must leave Python symbols unresolved until the
-# interpreter loads it. maturin passes these flags itself; `cargo test` / `cargo
-# build` need them here or linking fails with "_PyExc_* not found".
-[target.x86_64-apple-darwin]
-rustflags = ["-C", "link-arg=-undefined", "-C", "link-arg=dynamic_lookup"]
-
-[target.aarch64-apple-darwin]
-rustflags = ["-C", "link-arg=-undefined", "-C", "link-arg=dynamic_lookup"]
