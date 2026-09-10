@@ -39,11 +39,13 @@ def write_qa_csv(filepath, trade_rows, strategy_id, direction=1):
         # Prefer per-trade direction when present (index 7); else report-level default.
         trade_dir = int(row[7]) if len(row) > 7 else int(direction)
         action = "Buy" if trade_dir >= 0 else "Sell"
+        # Size = units traded (notional / fill price), index 8 when present.
+        size = float(row[8]) if len(row) > 8 else 1.0
         line = (
             f"{idx + 1},"
             f"{_fmt_time(row[0])},"
             f"{action},"
-            f"1.0,"
+            f"{size:.6f},"
             f"{strategy_id},"
             f"${float(row[2]):.2f},"
             f",,"
@@ -197,6 +199,8 @@ def write_html_equity_report(filepath, metrics, oos_window_boundaries=None):
             "Params",
             "Direction",
         ]
+        if n_cols >= 9:
+            columns.append("Size")  # units traded = notional / fill price
     else:
         columns = [
             "EntryTime",

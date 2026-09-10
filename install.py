@@ -36,11 +36,11 @@ DEPS = (
     "pandas>=2.0",
     "pyarrow>=14.0",
     "requests>=2.31",
-    "plotext>=5.2",
+    "plotext>=5.2,<6",
     "plotly>=5.20",
     "yfinance>=1.0",
 )
-BUILD_DEPS = ("maturin>=1.14,<2.0",)
+BUILD_DEPS = ("maturin>=1.14,<2.0", "pytest>=8.0")
 
 
 def read_version() -> str:

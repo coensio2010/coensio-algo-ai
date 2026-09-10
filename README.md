@@ -22,7 +22,8 @@ Requirements: Python 3.11+, git. Rust (https://rustup.rs) only if you need to re
 ```text
 git clone https://github.com/coensio2010/coensio-algo-ai.git
 cd coensio-algo-ai
-python install.py                 # pip deps, native build if needed, doctor
+python -m venv .venv              # optional but recommended; then activate it
+python install.py                 # pip deps, native build if needed, doctor (--skip-native, --rebuild, --data)
 python -m coensio_algo_ai doctor  # everything OK?
 python -m coensio_algo_ai strategies
 ```
@@ -138,16 +139,18 @@ results/                  reports (git-ignored)
 engine_cfg.toml           all settings
 tests/                    pytest
 docs/NEW_STRATEGY.md      strategy authoring guide
+docs/README.md            command cheat sheet
 AGENTS.md                 instructions for AI agents
 ```
 
 ## Development
 
 ```text
-pip install -r requirements.txt pytest
-python coensio_algo_ai/build_native.py
-pytest
-cd coensio_algo_ai/native_src && cargo test --release
+python install.py                           # installs pytest and maturin too
+python -m pytest
+python -m coensio_algo_ai check --max-bars 1500   # look-ahead gate, all strategies
+cd coensio_algo_ai/native_src
+cargo test --release
 ```
 
 ## Disclaimer

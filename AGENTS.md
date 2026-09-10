@@ -54,7 +54,8 @@ Short form `a|b|c` with only the param values is accepted too.
 2. `python -m coensio_algo_ai new-strategy <id>` then edit `recipe.toml` (params with `type`),
    `genome_fmt.toml` (template) and `rust/mod.rs` (signals).
 3. `python coensio_algo_ai/build_native.py`. Fix every Rust error and warning.
-4. `python -m coensio_algo_ai check --strategy <id>` must print `CHECK RESULT: PASS`.
+4. `python -m coensio_algo_ai check --strategy <id>` must print `CHECK RESULT: PASS`
+   (`--max-bars N` shortens the forward run; default 3000).
    It verifies recipe/template/Rust param consistency and that causal bar-by-bar
    signals equal batch signals (no look-ahead). Never skip or weaken this gate.
 5. Smoke: `optimize --population 30 --generations 20`. Expect trades. Zero trades means an
@@ -107,5 +108,6 @@ coensio_algo_ai/native_src/     Rust crate: engine.rs (fills), batch.rs (rayon),
 strategies/<id>/                recipe.toml, genome_fmt.toml, rust/mod.rs
 engine_cfg.toml                 all runtime settings
 docs/NEW_STRATEGY.md            strategy authoring guide
+docs/README.md                  command cheat sheet
 tests/                          pytest suite
 ```

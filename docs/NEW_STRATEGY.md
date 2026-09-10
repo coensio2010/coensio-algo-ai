@@ -84,6 +84,8 @@ python -m coensio_algo_ai backtest-forward --strategy <id> --file BTC_1h.parquet
 
 The forward path re-runs your plugin on a growing prefix `[0..i]` and keeps only the signal for bar `i`. Any mismatch with the batch run means the code reads future bars. Fix it before trusting any GA result. Full-series forward is O(N^2); use `--max-bars` on long histories.
 
+Scope of the gate: it detects reads of bars `> i` (e.g. `close[i + 1]`, a window ending after `i`). Reading bar `i` itself is causal (the signal is acted on at bar `i+1` open) and passes; whether your logic should use `x[i]` or `x[i-1]` is a design choice, not a look-ahead question.
+
 ---
 
 ## 4. `recipe.toml`
@@ -179,7 +181,7 @@ fn param_f64(recipe: &Recipe, genome: &[f64], name: &str, default: f64) -> f64 {
 
 Available data: `data.open/high/low/close/volume/timestamp` (`Vec<f64>`, timestamp in ns or s), `data.len()`, `ctx.session_days` (`Option<Arc<Vec<i32>>>`), `spec.session_utc_start`.
 
-Keep indicator helpers private in the same file (ATR, SMA, EMA, ...). No external crates. Add at least one `#[cfg(test)]` unit test that feeds a synthetic series and asserts an entry fires where expected (the scaffold shows the pattern).
+Keep indicator helpers private in the same file (ATR, SMA, EMA, ...). No external crates. Add at least one `#[cfg(test)]` unit test that feeds a synthetic series and asserts an entry fires where expected. Test helpers: `MarketData::new(ts, open, high, low, close, volume)`, `crate::recipe::get_recipe("<id>")`, `SignalBuffers::default()`, `BatchContext::default()`; the scaffold's `mod tests` shows the exact call. Run it with `cargo test --release <id>` from `coensio_algo_ai/native_src`.
 
 ---
 

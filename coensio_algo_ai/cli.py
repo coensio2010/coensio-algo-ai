@@ -7,6 +7,7 @@ Copyright coesnio.com
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from pathlib import Path
 
@@ -557,7 +558,19 @@ def main(argv: list[str] | None = None) -> int:
         print(f"unknown command: {cmd}\n", file=sys.stderr)
         print_help()
         return 2
-    return handler(rest)
+    try:
+        return handler(rest)
+    except (ValueError, KeyError, FileNotFoundError, NotADirectoryError) as exc:
+        # user-input problems (bad genome, unknown strategy, missing file, bad cfg):
+        # short message, no traceback. Set COENSIO_DEBUG=1 to see the full trace.
+        if os.environ.get("COENSIO_DEBUG"):
+            raise
+        msg = exc.args[0] if exc.args else str(exc)
+        print(f"error: {msg}", file=sys.stderr)
+        return 2
+    except KeyboardInterrupt:
+        print("\ninterrupted", file=sys.stderr)
+        return 130
 
 
 if __name__ == "__main__":

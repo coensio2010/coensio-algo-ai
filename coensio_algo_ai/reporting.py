@@ -154,6 +154,7 @@ def _pnl_drawdown_per_trade(trades: list[dict]):
 
 
 def _emit(text: str) -> None:
+    sys.stdout.flush()  # keep ordering when falling back to the byte buffer below
     try:
         sys.stdout.write(text + "\n")
         sys.stdout.flush()
@@ -232,9 +233,17 @@ def show_strategy_chart(detailed: dict, metrics: dict, genome_str: str, raw_cfg:
     print(f"\n--- Terminal chart (plotext, {chart_dims}) ---")
     print(base)
     print(f"Genome: {genome_str}")
-    if side_by_side:
+    if not side_by_side:
+        return False
+    try:
         return _plot_side_by_side(plt, x_full, pnl, (-dd), base, size, width)
-    return False
+    except Exception as exc:  # chart is cosmetic, never fail the run
+        ver = getattr(plt, "__version__", None) or getattr(plt, "version", "?")
+        print(
+            f"Terminal chart skipped: plotext {ver} raised {type(exc).__name__}: {exc}. "
+            "Install the supported version: pip install \"plotext>=5.2,<6\""
+        )
+        return False
 
 
 QA_HEADER = (
@@ -259,6 +268,8 @@ def trades_to_trade_list(trades: list[dict], index: pd.DatetimeIndex, genome_str
         xi = int(t.get("exit_bar", 0))
         if ei < 0 or xi < 0 or ei >= n or xi >= n:
             continue
+        entry_px = float(t.get("entry_price", 0.0))
+        qty = float(t.get("entry_notional", 0.0)) / entry_px if entry_px > 0 else 0.0
         rows.append(
             [
                 index[ei],
@@ -269,6 +280,7 @@ def trades_to_trade_list(trades: list[dict], index: pd.DatetimeIndex, genome_str
                 float(t.get("net_pnl", 0.0)),
                 genome_str,
                 int(t.get("direction", 1) or 1),
+                qty,
             ]
         )
     return rows

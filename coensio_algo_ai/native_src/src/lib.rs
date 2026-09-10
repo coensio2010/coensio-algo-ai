@@ -1,6 +1,19 @@
 //! coensio-algo-ai native core - powered by coensio.com
 //! copyright coesnio.com, see coesnio
 
+// Strategy code is written as explicit bar-index loops on purpose (it mirrors
+// the causality rules in docs/NEW_STRATEGY.md); these style lints fight that.
+#![allow(
+    clippy::needless_range_loop,
+    clippy::too_many_arguments,
+    clippy::if_same_then_else,
+    clippy::manual_clamp,
+    clippy::implicit_saturating_sub,
+    clippy::manual_memcpy,
+    clippy::neg_cmp_op_on_partial_ord,
+    clippy::empty_line_after_doc_comments
+)]
+
 mod batch;
 mod data;
 mod engine;
